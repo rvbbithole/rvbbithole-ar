@@ -7,7 +7,25 @@
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-particle-system-component@1.1.x/dist/aframe-particle-system-component.min.js"></script>
 </head>
-<body style='margin: 0; overflow: hidden;'>
+<script>
+XR8.addCameraPipelineModules([ 
+  XR8.GlobalScene.pipelineModule(),
+  XR8.Threejs.pipelineModule(),
+  XR8.XrController.pipelineModule(),
+  XRExtras.FullWindowCanvas.pipelineModule(),
+  XRExtras.Loading.pipelineModule(),
+  XRExtras.RuntimeError.pipelineModule(),
+])
+
+// Get free key: https://www.8thwall.com/signup
+XR8.XrController.configure({ disableWorldTracking: true })
+XR8.addCameraPipelineModule(XR8.createCameraPipelineModule())
+XR8.start({ 
+  allowedDevices: XR8.XrConfig.device().ANY,
+  ownLicenseKey: 'YOUR-8THWALL-FREE-KEY-HERE' 
+})
+</script>
+  <body style='margin: 0; overflow: hidden;'>
   <xr-webgl disable-world-tracking="true">
   
   <a-scene xrextras-almost-there xrextras-gesture-detector xrextras-rune-recognition>

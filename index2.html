@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RVBBITHOLE OUXD AR PORTAL</title>
+  <script src="https://cdn.8thwall.com/web/aframe/8frame-1.1.0.min.js"></script>
+  <script src="https://cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-particle-system-component@1.1.x/dist/aframe-particle-system-component.min.js"></script>
+</head>
+<body style='margin: 0; overflow: hidden;'>
+  <xr-webgl disable-world-tracking="true">
+  
+  <a-scene xrextras-almost-there xrextras-gesture-detector xrextras-rune-recognition>
+
+    <!-- OUXD Vortex Effect -->
+    <a-entity id="ouxd-vortex" position="0 0 -3" rotation="0 180 0">
+      <a-torus 
+        color="#FFD700" 
+        radius="1.5" 
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 15000">
+      </a-torus>
+      
+      <!-- Floating OUXD Coins -->
+      <a-entity class="ouxd-coin" position="-1 0.5 0" animation="property: position; to: -1 2 0; dir: alternate; loop: true; dur: 2000">
+        <a-circle 
+          color="#000000" 
+          opacity="0.8" 
+          radius="0.3">
+          <a-text 
+            value="OUXD" 
+            color="#FFD700" 
+            align="center" 
+            position="0 0 0.1">
+          </a-text>
+        </a-circle>
+      </a-entity>
+
+      <!-- More coins with random positions -->
+      <a-entity class="ouxd-coin" position="1 -0.5 0" animation="property: position; to: 1 1.5 0; dir: alternate; loop: true; dur: 2500">
+        <!-- Same coin structure -->
+      </a-entity>
+    </a-entity>
+
+    <!-- Particle Storm -->
+    <a-entity particle-system="preset: star; color: #FFD700; size: 0.1; maxAge: 2; accelerationValue: 0 0.1 0">
+      <a-animation attribute="particle-system.velocity" from="0.1 0.1 0.1" to="0.5 0.5 0.5" dur="3000" repeat="indefinite"></a-animation>
+    </a-entity>
+
+    <!-- Hidden Crypto Protocol -->
+    <a-entity id="crypto-protocol" visible="false">
+      <a-text 
+        value="RVBBITHOLE PROTOCOL ACTIVATED \n OUXD BALANCE: 0" 
+        position="0 2 -4" 
+        color="#FFD700" 
+        width="5">
+      </a-text>
+    </a-entity>
+
+  </a-scene>
+
+  <!-- Free 8th Wall Init -->
+  <script>
+    XR8.addCameraPipelineModule(XRExtras.AlmostThere.pipelineModule())
+    XR8.addCameraPipelineModule(XRExtras.Gesture.pipelineModule())
+    XR8.addCameraPipelineModule(XRExtras.RuntimeError.pipelineModule())
+    
+    // OUXD Coin Collector Logic
+    let ouydBalance = 0
+    document.querySelectorAll('.ouxd-coin').forEach(coin => {
+      coin.addEventListener('click', () => {
+        coin.setAttribute('visible', 'false')
+        ouydBalance++
+        document.querySelector('#crypto-protocol').setAttribute('visible', 'true')
+        document.querySelector('#crypto-protocol a-text').setAttribute('value', 
+          `RVBBITHOLE PROTOCOL ACTIVATED \n OUXD BALANCE: ${ouydBalance}`)
+      })
+    })
+  </script>
+</body>
+</html>
